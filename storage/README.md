@@ -26,13 +26,13 @@ Retrieve the download URL for a storage reference.
 
 The `useDownloadURL` hook takes the following parameters:
 
-- `reference`: (optional) `firebase.storage.Reference` that you would like the download URL for
+- `reference`: (optional) `FirebaseStorageTypes.Reference` that you would like the download URL for
 
 Returns:
 
 - `downloadUrl`: A `string` download URL, or `undefined` if no storage reference is supplied
 - `loading`: A `boolean` to indicate whether the the download URL is still being loaded
-- `error`: Any `firebase.FirebaseError` returned by Firebase when trying to load the user, or `undefined` if there is no error
+- `error`: Any `ReactNativeFirebase.NativeFirebaseError` returned by Firebase when trying to load the user, or `undefined` if there is no error
 
 #### Full example
 

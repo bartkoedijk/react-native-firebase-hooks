@@ -1,15 +1,19 @@
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseStorageTypes } from '@react-native-firebase/storage';
 import { useEffect } from 'react';
 import { LoadingHook, useComparatorRef, useLoadingValue } from '../util';
 
-export type DownloadURLHook = LoadingHook<string, firebase.FirebaseError>;
+export type DownloadURLHook = LoadingHook<
+  string,
+  ReactNativeFirebase.NativeFirebaseError
+>;
 
 export default (
-  storageRef?: firebase.storage.Reference | null
+  storageRef?: FirebaseStorageTypes.Reference | null
 ): DownloadURLHook => {
   const { error, loading, reset, setError, setValue, value } = useLoadingValue<
     string,
-    firebase.FirebaseError
+    ReactNativeFirebase.NativeFirebaseError
   >();
   const ref = useComparatorRef(storageRef, isEqual, reset);
 
@@ -25,8 +29,8 @@ export default (
 };
 
 const isEqual = (
-  v1: firebase.storage.Reference | null | undefined,
-  v2: firebase.storage.Reference | null | undefined
+  v1: FirebaseStorageTypes.Reference | null | undefined,
+  v2: FirebaseStorageTypes.Reference | null | undefined
 ): boolean => {
   const bothNull: boolean = !v1 && !v2;
   const equal: boolean = !!v1 && !!v2 && v1.fullPath === v2.fullPath;
