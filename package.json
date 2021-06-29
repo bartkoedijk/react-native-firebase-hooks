@@ -1,15 +1,24 @@
 {
-  "name": "react-firebase-hooks",
-  "version": "3.0.4",
-  "description": "React Hooks for Firebase",
-  "author": "CS Frequency Limited (https://csfrequency.com)",
+  "name": "react-native-firebase-hooks",
+  "version": "1.0.0",
+  "description": "Firebase hooks for a React Native project",
+  "author": "Bart Koedijk",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/csfrequency/react-firebase-hooks",
-  "bugs": "https://github.com/csfrequency/react-firebase-hooks/issues",
+  "homepage": "https://github.com/bartkoedijk/react-native-firebase-hooks#readme",
+  "bugs": {
+    "url": "https://github.com/bartkoedijk/react-native-firebase-hooks/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartkoedijk/react-native-firebase-hooks.git"
+  },
   "keywords": [
     "react",
+    "native",
+    "firebase",
     "hooks",
-    "firebase"
+    "ts",
+    "typescript"
   ],
   "files": [
     "auth/dist/*.js",
@@ -35,10 +44,6 @@
     "storage/dist/*.js.flow",
     "storage/package.json"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/csfrequency/react-firebase-hooks.git"
-  },
   "scripts": {
     "build": "npm run clean && rollup -c",
     "clean": "rimraf ./dist ./auth/dist ./auth/*.d.ts ./database/dist ./database/*.d.ts ./firestore/dist ./firestore/*.d.ts ./storage/dist ./storage/*.d.ts ./util/*.d.ts",
@@ -49,7 +54,6 @@
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "dependencies": {},
   "devDependencies": {
     "@types/react": "^17.0.0",
     "firebase": "^8.0.0",
@@ -67,7 +71,12 @@
   },
   "peerDependencies": {
     "react": ">= 16.8.0",
-    "firebase": ">= 8.0.0"
+    "@react-native-firebase/app": "^12.1.0",
+    "@react-native-firebase/auth": "^12.1.0",
+    "@react-native-firebase/crashlytics": "^12.1.0",
+    "@react-native-firebase/database": "^12.1.0",
+    "@react-native-firebase/firestore": "^12.1.0",
+    "@react-native-firebase/storage": "^12.1.0"
   },
   "typings": "index.d.ts"
 }
