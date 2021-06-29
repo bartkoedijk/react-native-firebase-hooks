@@ -1,13 +1,14 @@
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { useReducer } from 'react';
 
 type KeyValueState = {
   keys?: string[];
-  values?: firebase.database.DataSnapshot[];
+  values?: FirebaseDatabaseTypes.DataSnapshot[];
 };
 
 type ReducerState = {
-  error?: firebase.FirebaseError;
+  error?: ReactNativeFirebase.NativeFirebaseError;
   loading: boolean;
   value: KeyValueState;
 };
@@ -15,25 +16,31 @@ type ReducerState = {
 type AddAction = {
   type: 'add';
   previousKey?: string | null;
-  snapshot: firebase.database.DataSnapshot | null;
+  snapshot: FirebaseDatabaseTypes.DataSnapshot | null;
 };
 type ChangeAction = {
   type: 'change';
-  snapshot: firebase.database.DataSnapshot | null;
+  snapshot: FirebaseDatabaseTypes.DataSnapshot | null;
 };
 type EmptyAction = { type: 'empty' };
-type ErrorAction = { type: 'error'; error: firebase.FirebaseError };
+type ErrorAction = {
+  type: 'error';
+  error: ReactNativeFirebase.NativeFirebaseError;
+};
 type MoveAction = {
   type: 'move';
   previousKey?: string | null;
-  snapshot: firebase.database.DataSnapshot | null;
+  snapshot: FirebaseDatabaseTypes.DataSnapshot | null;
 };
 type RemoveAction = {
   type: 'remove';
-  snapshot: firebase.database.DataSnapshot | null;
+  snapshot: FirebaseDatabaseTypes.DataSnapshot | null;
 };
 type ResetAction = { type: 'reset' };
-type ValueAction = { type: 'value'; snapshots: firebase.database.DataSnapshot[] | null };
+type ValueAction = {
+  type: 'value';
+  snapshots: FirebaseDatabaseTypes.DataSnapshot[] | null;
+};
 type ReducerAction =
   | AddAction
   | ChangeAction
@@ -126,7 +133,9 @@ const listReducer = (
   }
 };
 
-const setValue = (snapshots: firebase.database.DataSnapshot[] | null): KeyValueState => {
+const setValue = (
+  snapshots: FirebaseDatabaseTypes.DataSnapshot[] | null
+): KeyValueState => {
   if (!snapshots) {
     return {
       keys: [],
@@ -135,7 +144,7 @@ const setValue = (snapshots: firebase.database.DataSnapshot[] | null): KeyValueS
   }
 
   const keys: string[] = [];
-  const values: firebase.database.DataSnapshot[] = [];
+  const values: FirebaseDatabaseTypes.DataSnapshot[] = [];
   snapshots.forEach((snapshot) => {
     if (!snapshot.key) {
       return;
@@ -152,7 +161,7 @@ const setValue = (snapshots: firebase.database.DataSnapshot[] | null): KeyValueS
 
 const addChild = (
   currentState: KeyValueState,
-  snapshot: firebase.database.DataSnapshot,
+  snapshot: FirebaseDatabaseTypes.DataSnapshot,
   previousKey?: string | null
 ): KeyValueState => {
   if (!snapshot.key) {
@@ -182,7 +191,7 @@ const addChild = (
 
 const changeChild = (
   currentState: KeyValueState,
-  snapshot: firebase.database.DataSnapshot
+  snapshot: FirebaseDatabaseTypes.DataSnapshot
 ): KeyValueState => {
   if (!snapshot.key) {
     return currentState;
@@ -199,7 +208,7 @@ const changeChild = (
 
 const removeChild = (
   currentState: KeyValueState,
-  snapshot: firebase.database.DataSnapshot
+  snapshot: FirebaseDatabaseTypes.DataSnapshot
 ): KeyValueState => {
   if (!snapshot.key) {
     return currentState;
@@ -217,7 +226,7 @@ const removeChild = (
 
 const moveChild = (
   currentState: KeyValueState,
-  snapshot: firebase.database.DataSnapshot,
+  snapshot: FirebaseDatabaseTypes.DataSnapshot,
   previousKey?: string | null
 ): KeyValueState => {
   // Remove the child from it's previous location

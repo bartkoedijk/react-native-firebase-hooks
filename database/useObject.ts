@@ -1,15 +1,16 @@
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { useEffect, useMemo } from 'react';
+import { useIsEqualRef, useLoadingValue } from '../util';
 import { snapshotToData, ValOptions } from './helpers';
 import { ObjectHook, ObjectValHook, Val } from './types';
-import { useIsEqualRef, useLoadingValue } from '../util';
 
 export const useObject = (
-  query?: firebase.database.Query | null
+  query?: FirebaseDatabaseTypes.Query | null
 ): ObjectHook => {
   const { error, loading, reset, setError, setValue, value } = useLoadingValue<
-    firebase.database.DataSnapshot,
-    firebase.FirebaseError
+    FirebaseDatabaseTypes.DataSnapshot,
+    ReactNativeFirebase.NativeFirebaseError
   >();
   const ref = useIsEqualRef(query, reset);
 
@@ -36,7 +37,7 @@ export const useObjectVal = <
   KeyField extends string = '',
   RefField extends string = ''
 >(
-  query?: firebase.database.Query | null,
+  query?: FirebaseDatabaseTypes.Query | null,
   options?: ValOptions<T>
 ): ObjectValHook<T, KeyField, RefField> => {
   const keyField = options ? options.keyField : undefined;

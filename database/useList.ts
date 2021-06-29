@@ -1,15 +1,18 @@
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { useEffect, useMemo } from 'react';
+import { useIsEqualRef } from '../util';
 import { snapshotToData, ValOptions } from './helpers';
 import useListReducer from './helpers/useListReducer';
 import { ListHook, ListKeysHook, ListValsHook, Val } from './types';
-import { useIsEqualRef } from '../util';
 
-export const useList = (query?: firebase.database.Query | null): ListHook => {
+export const useList = (
+  query?: FirebaseDatabaseTypes.Query | null
+): ListHook => {
   const [state, dispatch] = useListReducer();
 
   const queryRef = useIsEqualRef(query, () => dispatch({ type: 'reset' }));
-  const ref: firebase.database.Query | null | undefined = queryRef.current;
+  const ref: FirebaseDatabaseTypes.Query | null | undefined = queryRef.current;
 
   useEffect(() => {
     if (!ref) {
@@ -18,41 +21,43 @@ export const useList = (query?: firebase.database.Query | null): ListHook => {
     }
 
     const onChildAdded = (
-      snapshot: firebase.database.DataSnapshot | null,
+      snapshot: FirebaseDatabaseTypes.DataSnapshot | null,
       previousKey?: string | null
     ) => {
       dispatch({ type: 'add', previousKey, snapshot });
     };
 
     const onChildChanged = (
-      snapshot: firebase.database.DataSnapshot | null
+      snapshot: FirebaseDatabaseTypes.DataSnapshot | null
     ) => {
       dispatch({ type: 'change', snapshot });
     };
 
     const onChildMoved = (
-      snapshot: firebase.database.DataSnapshot | null,
+      snapshot: FirebaseDatabaseTypes.DataSnapshot | null,
       previousKey?: string | null
     ) => {
       dispatch({ type: 'move', previousKey, snapshot });
     };
 
     const onChildRemoved = (
-      snapshot: firebase.database.DataSnapshot | null
+      snapshot: FirebaseDatabaseTypes.DataSnapshot | null
     ) => {
       dispatch({ type: 'remove', snapshot });
     };
 
-    const onError = (error: firebase.FirebaseError) => {
+    const onError = (error: ReactNativeFirebase.NativeFirebaseError) => {
       dispatch({ type: 'error', error });
     };
 
-    const onValue = (snapshots: firebase.database.DataSnapshot[] | null) => {
+    const onValue = (
+      snapshots: FirebaseDatabaseTypes.DataSnapshot[] | null
+    ) => {
       dispatch({ type: 'value', snapshots });
     };
 
     let childAddedHandler: ReturnType<typeof ref.on> | undefined;
-    const onInitialLoad = (snapshot: firebase.database.DataSnapshot) => {
+    const onInitialLoad = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
       const snapshotVal = snapshot.val();
       let childrenToProcess = snapshotVal
         ? Object.keys(snapshot.val()).length
@@ -64,10 +69,10 @@ export const useList = (query?: firebase.database.Query | null): ListHook => {
         onValue([]);
       } else {
         // Otherwise, we load the first batch of children all to reduce re-renders
-        const children: firebase.database.DataSnapshot[] = [];
+        const children: FirebaseDatabaseTypes.DataSnapshot[] = [];
 
         const onChildAddedWithoutInitialLoad = (
-          addedChild: firebase.database.DataSnapshot,
+          addedChild: FirebaseDatabaseTypes.DataSnapshot,
           previousKey?: string | null
         ) => {
           if (childrenToProcess > 0) {
@@ -118,7 +123,7 @@ export const useList = (query?: firebase.database.Query | null): ListHook => {
 };
 
 export const useListKeys = (
-  query?: firebase.database.Query | null
+  query?: FirebaseDatabaseTypes.Query | null
 ): ListKeysHook => {
   const [snapshots, loading, error] = useList(query);
   const values = useMemo(
@@ -138,7 +143,7 @@ export const useListVals = <
   KeyField extends string = '',
   RefField extends string = ''
 >(
-  query?: firebase.database.Query | null,
+  query?: FirebaseDatabaseTypes.Query | null,
   options?: ValOptions<T>
 ): ListValsHook<T, KeyField, RefField> => {
   const keyField = options ? options.keyField : undefined;

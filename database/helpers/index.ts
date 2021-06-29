@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 
 export type ValOptions<T> = {
   keyField?: string;
@@ -10,7 +10,7 @@ const isObject = (val: any) =>
   val != null && typeof val === 'object' && Array.isArray(val) === false;
 
 export const snapshotToData = <T>(
-  snapshot: firebase.database.DataSnapshot,
+  snapshot: FirebaseDatabaseTypes.DataSnapshot,
   keyField?: string,
   refField?: string,
   transform?: (val: any) => T
