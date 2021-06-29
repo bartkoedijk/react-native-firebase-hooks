@@ -1,20 +1,20 @@
-import firebase from 'firebase/app';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useEffect, useMemo } from 'react';
 import { LoadingHook, useLoadingValue } from '../util';
 
 export type AuthStateHook = LoadingHook<
-  firebase.User | null,
-  firebase.auth.Error
+  FirebaseAuthTypes.User | null,
+  FirebaseAuthTypes.NativeFirebaseAuthError
 >;
 
-export default (auth: firebase.auth.Auth): AuthStateHook => {
+export default (auth: FirebaseAuthTypes.Module): AuthStateHook => {
   const { error, loading, setError, setValue, value } = useLoadingValue<
-    firebase.User | null,
-    firebase.auth.Error
+    FirebaseAuthTypes.User | null,
+    FirebaseAuthTypes.NativeFirebaseAuthError
   >(() => auth.currentUser);
 
   useEffect(() => {
-    const listener = auth.onAuthStateChanged(setValue, setError);
+    const listener = auth.onAuthStateChanged(setValue);
 
     return () => {
       listener();

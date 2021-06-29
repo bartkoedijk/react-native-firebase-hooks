@@ -24,13 +24,13 @@ Retrieve and monitor the authentication state from Firebase.
 
 The `useAuthState` hook takes the following parameters:
 
-- `auth`: `firebase.auth.Auth` instance for the app you would like to monitor
+- `auth`: `FirebaseAuthTypes.Module` instance for the app you would like to monitor
 
 Returns:
 
-- `user`: The `firebase.User` if logged in, or `undefined` if not
+- `user`: The `FirebaseAuthTypes.User` if logged in, or `undefined` if not
 - `loading`: A `boolean` to indicate whether the the authentication state is still being loaded
-- `error`: Any `firebase.auth.Error` returned by Firebase when trying to load the user, or `undefined` if there is no error
+- `error`: Any `FirebaseAuthTypes.NativeFirebaseAuthError` returned by Firebase when trying to load the user, or `undefined` if there is no error
 
 #### If you are registering or signing in the user for the first time consider using [useCreateUserWithEmailAndPassword](#usecreateuserwithemailandpassword), [useSignInWithEmailAndPassword](#usesigninwithemailandpassword)
 
@@ -90,17 +90,17 @@ Create a user with email and password. Wraps the underlying `firebase.auth().cre
 
 The `useCreateUserWithEmailAndPassword` hook takes the following parameters:
 
-- `auth`: `firebase.auth.Auth` instance for the app you would like to monitor
+- `auth`: `FirebaseAuthTypes.Module` instance for the app you would like to monitor
 - `options`: (optional) `Object` with the following parameters:
-  - `emailVerificationOptions`: (optional) `firebase.auth.ActionCodeSettings` to customise the email verification
+  - `emailVerificationOptions`: (optional) `FirebaseAuthTypes.ActionCodeSettings` to customise the email verification
   - `sendEmailVerification`: (optional) `boolean` to trigger sending of an email verification after the user has been created
 
 Returns:
 
 - `createUserWithEmailAndPassword(email: string, password: string)`: a function you can call to start the registration
-- `user`: The `firebase.User` if the user was created or `undefined` if not
+- `user`: The `FirebaseAuthTypes.User` if the user was created or `undefined` if not
 - `loading`: A `boolean` to indicate whether the the user creation is processing
-- `error`: Any `firebase.auth.Error` returned by Firebase when trying to create the user, or `undefined` if there is no error
+- `error`: Any `FirebaseAuthTypes.NativeFirebaseAuthError` returned by Firebase when trying to create the user, or `undefined` if there is no error
 
 #### Full Example
 
@@ -169,14 +169,14 @@ Login a user with email and password. Wraps the underlying `firebase.auth().sign
 
 The `useSignInWithEmailAndPassword` hook takes the following parameters:
 
-- `auth`: `firebase.auth.Auth` instance for the app you would like to monitor
+- `auth`: `FirebaseAuthTypes.Module` instance for the app you would like to monitor
 
 Returns:
 
 - `signInWithEmailAndPassword(email: string, password: string)`: a function you can call to start the login
-- `user`: The `firebase.User` if the user was logged in or `undefined` if not
+- `user`: The `FirebaseAuthTypes.User` if the user was logged in or `undefined` if not
 - `loading`: A `boolean` to indicate whether the the user login is processing
-- `error`: Any `firebase.auth.Error` returned by Firebase when trying to login the user, or `undefined` if there is no error
+- `error`: Any `FirebaseAuthTypes.NativeFirebaseAuthError` returned by Firebase when trying to login the user, or `undefined` if there is no error
 
 #### Full Example
 

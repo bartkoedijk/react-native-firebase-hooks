@@ -1,5 +1,5 @@
 {
-  "name": "react-firebase-hooks/util",
+  "name": "react-native-firebase-hooks/util",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js"
 }

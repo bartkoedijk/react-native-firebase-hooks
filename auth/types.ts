@@ -1,4 +1,5 @@
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export type AuthActionHook<T, E> = [
   (email: string, password: string) => void,
@@ -7,10 +8,11 @@ export type AuthActionHook<T, E> = [
   E | undefined
 ];
 export type CreateUserOptions = {
-  emailVerificationOptions?: firebase.auth.ActionCodeSettings;
+  // emailVerificationOptions?: FirebaseAuthTypes.ActionCodeSettings;
+  emailVerificationOptions?: FirebaseAuthTypes.ActionCodeSettings;
   sendEmailVerification?: boolean;
 };
 export type EmailAndPasswordActionHook = AuthActionHook<
-  firebase.auth.UserCredential,
-  firebase.FirebaseError
+  FirebaseAuthTypes.UserCredential,
+  ReactNativeFirebase.NativeFirebaseError
 >;

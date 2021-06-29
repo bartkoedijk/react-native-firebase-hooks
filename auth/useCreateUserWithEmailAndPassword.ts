@@ -1,16 +1,17 @@
-import { useState, useMemo } from 'react';
-import firebase from 'firebase/app';
+import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useMemo, useState } from 'react';
 import { CreateUserOptions, EmailAndPasswordActionHook } from './types';
 
 export default (
-  auth: firebase.auth.Auth,
+  auth: FirebaseAuthTypes.Module,
   options?: CreateUserOptions
 ): EmailAndPasswordActionHook => {
-  const [error, setError] = useState<firebase.FirebaseError>();
+  const [error, setError] = useState<ReactNativeFirebase.NativeFirebaseError>();
   const [
     registeredUser,
     setRegisteredUser,
-  ] = useState<firebase.auth.UserCredential>();
+  ] = useState<FirebaseAuthTypes.UserCredential>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const createUserWithEmailAndPassword = async (
