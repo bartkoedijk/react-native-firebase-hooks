@@ -1,15 +1,15 @@
-# React Firebase Hooks - Cloud Storage
+# React Native Firebase Hooks - Cloud Storage
 
-React Firebase Hooks provides convenience listeners for files stored within
+React Native Firebase Hooks provides convenience listeners for files stored within
 Firebase Cloud Storage. The hooks wrap around the `firebase.storage().ref().getDownloadURL()` method.
 
 In addition to returning the download URL, the hooks provide an `error` and `loading` property
 to give a complete lifecycle for loading from Cloud Storage.
 
-All hooks can be imported from `react-firebase-hooks/storage`, e.g.
+All hooks can be imported from `react-native-firebase-hooks/storage`, e.g.
 
 ```js
-import { useDownloadURL } from 'react-firebase-hooks/storage';
+import { useDownloadURL } from 'react-native-firebase-hooks/storage';
 ```
 
 List of Cloud Storage hooks:
@@ -37,7 +37,7 @@ Returns:
 #### Full example
 
 ```js
-import { useDownloadURL } from 'react-firebase-hooks/storage';
+import { useDownloadURL } from 'react-native-firebase-hooks/storage';
 
 const DownloadURL = () => {
   const [value, loading, error] = useDownloadURL(

@@ -1,15 +1,15 @@
-# React Firebase Hooks - Realtime Database
+# React Native Firebase Hooks - Realtime Database
 
-React Firebase Hooks provides convenience listeners for lists and values stored within the
+React Native Firebase Hooks provides convenience listeners for lists and values stored within the
 Firebase Realtime Database. The hooks wrap around the `firebase.database().ref().on()` method.
 
 In addition to returning the list or value, the hooks provide an `error` and `loading` property
 to give a complete lifecycle for loading and listening to the Realtime Database.
 
-All hooks can be imported from `react-firebase-hooks/database`, e.g.
+All hooks can be imported from `react-native-firebase-hooks/database`, e.g.
 
 ```js
-import { useList } from 'react-firebase-hooks/database';
+import { useList } from 'react-native-firebase-hooks/database';
 ```
 
 List of Realtime Database hooks:
@@ -45,7 +45,7 @@ Returns:
 #### Full Example
 
 ```js
-import { useList } from 'react-firebase-hooks/database';
+import { useList } from 'react-native-firebase-hooks/database';
 
 const DatabaseList = () => {
   const [snapshots, loading, error] = useList(firebase.database().ref('list'));
@@ -133,7 +133,7 @@ Returns:
 #### Full Example
 
 ```js
-import { useObject } from 'react-firebase-hooks/database';
+import { useObject } from 'react-native-firebase-hooks/database';
 
 const DatabaseValue = () => {
   const [snapshot, loading, error] = useObject(

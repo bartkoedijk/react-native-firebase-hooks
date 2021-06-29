@@ -1,11 +1,11 @@
-# React Firebase Hooks - Auth
+# React Native Firebase Hooks - Auth
 
-React Firebase Hooks provides a convenience listener for Firebase Auth's auth state. The hook wraps around the `firebase.auth().onAuthStateChange()` method to ensure that it is always up to date.
+React Native Firebase Hooks provides a convenience listener for Firebase Auth's auth state. The hook wraps around the `firebase.auth().onAuthStateChange()` method to ensure that it is always up to date.
 
-All hooks can be imported from `react-firebase-hooks/auth`, e.g.
+All hooks can be imported from `react-native-firebase-hooks/auth`, e.g.
 
 ```js
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from 'react-native-firebase-hooks/auth';
 ```
 
 List of Auth hooks:
@@ -37,7 +37,7 @@ Returns:
 #### Full Example
 
 ```js
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from 'react-native-firebase-hooks/auth';
 
 const login = () => {
   firebase.auth().signInWithEmailAndPassword('test@test.com', 'password');
@@ -105,7 +105,7 @@ Returns:
 #### Full Example
 
 ```jsx
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-native-firebase-hooks/auth';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -181,7 +181,7 @@ Returns:
 #### Full Example
 
 ```jsx
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-native-firebase-hooks/auth';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');

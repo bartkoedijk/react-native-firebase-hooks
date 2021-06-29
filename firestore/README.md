@@ -1,6 +1,6 @@
-# React Firebase Hooks - Cloud Firestore
+# React Native Firebase Hooks - Cloud Firestore
 
-React Firebase Hooks provides convenience listeners for Collections and Documents stored with
+React Native Firebase Hooks provides convenience listeners for Collections and Documents stored with
 Cloud Firestore. The hooks wrap around the `firebase.firestore.collection().onSnapshot()`
 and `firebase.firestore().doc().onSnapshot()` methods.
 
@@ -12,10 +12,10 @@ There are 2 variants of each hook:
 - `useX` which subscribes to the underlying Collection or Document and listens for changes
 - `useXOnce` which reads the current value of the Collection or Document
 
-All hooks can be imported from `react-firebase-hooks/firestore`, e.g.
+All hooks can be imported from `react-native-firebase-hooks/firestore`, e.g.
 
 ```js
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-native-firebase-hooks/firestore';
 ```
 
 List of Cloud Firestore hooks:
@@ -58,7 +58,7 @@ Returns:
 #### Full example
 
 ```js
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-native-firebase-hooks/firestore';
 
 const FirestoreCollection = () => {
   const [value, loading, error] = useCollection(
@@ -180,7 +180,7 @@ Returns:
 #### Full example
 
 ```js
-import { useDocument } from 'react-firebase-hooks/firestore';
+import { useDocument } from 'react-native-firebase-hooks/firestore';
 
 const FirestoreDocument = () => {
   const [value, loading, error] = useDocument(
