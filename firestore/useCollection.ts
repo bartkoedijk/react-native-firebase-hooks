@@ -26,26 +26,18 @@ export const useCollectionOnce = <T = FirebaseFirestoreTypes.DocumentData>(
   return useCollectionInternal<T>(false, query, options);
 };
 
-export const useCollectionData = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+export const useCollectionData = <T = FirebaseFirestoreTypes.DocumentData>(
   query?: FirebaseFirestoreTypes.Query | null,
   options?: DataOptions<T>
-): CollectionDataHook<T, IDField, RefField> => {
-  return useCollectionDataInternal<T, IDField, RefField>(true, query, options);
+): CollectionDataHook<T> => {
+  return useCollectionDataInternal<T>(true, query, options);
 };
 
-export const useCollectionDataOnce = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+export const useCollectionDataOnce = <T = FirebaseFirestoreTypes.DocumentData>(
   query?: FirebaseFirestoreTypes.Query | null,
   options?: OnceDataOptions<T>
-): CollectionDataHook<T, IDField, RefField> => {
-  return useCollectionDataInternal<T, IDField, RefField>(false, query, options);
+): CollectionDataHook<T> => {
+  return useCollectionDataInternal<T>(false, query, options);
 };
 
 const useCollectionInternal = <T = FirebaseFirestoreTypes.DocumentData>(
@@ -93,15 +85,11 @@ const useCollectionInternal = <T = FirebaseFirestoreTypes.DocumentData>(
   return useMemo(() => resArray, resArray);
 };
 
-const useCollectionDataInternal = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+const useCollectionDataInternal = <T = FirebaseFirestoreTypes.DocumentData>(
   listen: boolean,
   query?: FirebaseFirestoreTypes.Query | null,
   options?: DataOptions<T> & OnceDataOptions<T>
-): CollectionDataHook<T, IDField, RefField> => {
+): CollectionDataHook<T> => {
   const idField = options ? options.idField : undefined;
   const refField = options ? options.refField : undefined;
   const snapshotOptions = options ? options.snapshotOptions : undefined;
@@ -123,14 +111,10 @@ const useCollectionDataInternal = <
               transform
             )
           )
-        : undefined) as Data<T, IDField, RefField>[],
+        : undefined) as Data<T>[],
     [snapshots, snapshotOptions, idField, refField, transform]
   );
 
-  const resArray: CollectionDataHook<T, IDField, RefField> = [
-    values,
-    loading,
-    error,
-  ];
+  const resArray: CollectionDataHook<T> = [values, loading, error];
   return useMemo(() => resArray, resArray);
 };

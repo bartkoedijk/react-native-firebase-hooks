@@ -26,26 +26,18 @@ export const useDocumentOnce = <T = FirebaseFirestoreTypes.DocumentData>(
   return useDocumentInternal<T>(false, docRef, options);
 };
 
-export const useDocumentData = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+export const useDocumentData = <T = FirebaseFirestoreTypes.DocumentData>(
   docRef?: FirebaseFirestoreTypes.DocumentReference | null,
   options?: DataOptions<T>
-): DocumentDataHook<T, IDField, RefField> => {
-  return useDocumentDataInternal<T, IDField, RefField>(true, docRef, options);
+): DocumentDataHook<T> => {
+  return useDocumentDataInternal<T>(true, docRef, options);
 };
 
-export const useDocumentDataOnce = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+export const useDocumentDataOnce = <T = FirebaseFirestoreTypes.DocumentData>(
   docRef?: FirebaseFirestoreTypes.DocumentReference | null,
   options?: OnceDataOptions<T>
-): DocumentDataHook<T, IDField, RefField> => {
-  return useDocumentDataInternal<T, IDField, RefField>(false, docRef, options);
+): DocumentDataHook<T> => {
+  return useDocumentDataInternal<T>(false, docRef, options);
 };
 
 const useDocumentInternal = <T = FirebaseFirestoreTypes.DocumentData>(
@@ -93,15 +85,11 @@ const useDocumentInternal = <T = FirebaseFirestoreTypes.DocumentData>(
   return useMemo(() => resArray, resArray);
 };
 
-const useDocumentDataInternal = <
-  T = FirebaseFirestoreTypes.DocumentData,
-  IDField extends string = '',
-  RefField extends string = ''
->(
+const useDocumentDataInternal = <T = FirebaseFirestoreTypes.DocumentData>(
   listen: boolean,
   docRef?: FirebaseFirestoreTypes.DocumentReference | null,
   options?: DataOptions<T>
-): DocumentDataHook<T, IDField, RefField> => {
+): DocumentDataHook<T> => {
   const idField = options ? options.idField : undefined;
   const refField = options ? options.refField : undefined;
   const snapshotOptions = options ? options.snapshotOptions : undefined;
@@ -121,14 +109,10 @@ const useDocumentDataInternal = <
             refField,
             transform
           )
-        : undefined) as Data<T, IDField, RefField>,
-    [snapshot, snapshotOptions, idField, refField, transform]
+        : undefined) as Data<T>,
+    [snapshot, snapshotOptions, transform]
   );
 
-  const resArray: DocumentDataHook<T, IDField, RefField> = [
-    value,
-    loading,
-    error,
-  ];
+  const resArray: DocumentDataHook<T> = [value, loading, error];
   return useMemo(() => resArray, resArray);
 };
