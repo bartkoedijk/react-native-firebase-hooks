@@ -8,7 +8,7 @@ export type AuthStateHook = LoadingHook<
 >;
 
 export default (auth: FirebaseAuthTypes.Module): AuthStateHook => {
-  const { error, loading, setError, setValue, value } = useLoadingValue<
+  const { error, loading, setValue, value } = useLoadingValue<
     FirebaseAuthTypes.User | null,
     FirebaseAuthTypes.NativeFirebaseAuthError
   >(() => auth.currentUser);
